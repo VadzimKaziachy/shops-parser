@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  parser:
+    build:
+      context: web
+    working_dir: ${COMPOSE_PROJECT_DIR}/src
+    env_file: .env
+    command: "scrapyd"
+    volumes:
+    - ../src:${COMPOSE_PROJECT_DIR}/src
+    expose:
+      - 6800
