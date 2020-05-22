@@ -11,7 +11,7 @@ import requests
 from typing import List, NoReturn
 
 from .items import TwentyFirstCenturyItem
-from .settings import BACKEND_URL, BACKEND_HOST
+from .settings import BACKEND_URL
 
 
 class TwentyFirstCenterPipeline(object):
@@ -25,6 +25,6 @@ class TwentyFirstCenterPipeline(object):
 
     def close_spider(self, spider) -> NoReturn:
         requests.patch(
-            url=BACKEND_URL.format(backend_host=BACKEND_HOST, job_id=os.environ['SCRAPY_JOB']),
+            url=BACKEND_URL.format(backend_host=os.environ['BACKEND_HOST'], job_id=os.environ['SCRAPY_JOB']),
             json={'data': [dict(item) for item in self.products]}
         )

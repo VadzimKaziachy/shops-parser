@@ -3,7 +3,7 @@ version: '3.7'
 services:
   parser:
     build:
-      context: web
+      context: parser
     working_dir: ${COMPOSE_PROJECT_DIR}/src
     env_file: .env
     command: "scrapyd"

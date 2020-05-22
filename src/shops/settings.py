@@ -89,5 +89,4 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-BACKEND_HOST = 'localhost'
 BACKEND_URL = 'http://{backend_host}:8000/api/century/{job_id}'
