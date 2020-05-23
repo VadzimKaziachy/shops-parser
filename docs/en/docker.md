@@ -10,7 +10,7 @@
 ### Installation
 
 The first thing you need to do is set up your environment variables.
-You can read how to configure the environment variable file in the section [Environment Variables](#enviroment)
+You can read how to configure the environment variable file in the section [Environment Variables](enviroment.md)
 
 Next, run the project using Docker:
 
