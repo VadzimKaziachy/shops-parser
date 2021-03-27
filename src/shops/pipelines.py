@@ -8,22 +8,21 @@
 
 import os
 import requests
-from typing import List, NoReturn
 
-from .items import TwentyFirstCenturyItem
-from .settings import BACKEND_URL
+from shops.items import TwentyFirstCenturyItem
+from shops.settings import BACKEND_URL
 
 
-class TwentyFirstCenterPipeline(object):
+class ProductsPipeline(object):
 
-    def __init__(self) -> NoReturn:
-        self.products: List[TwentyFirstCenturyItem] = list()
+    def __init__(self) -> None:
+        self.products: list[TwentyFirstCenturyItem] = list()
 
     def process_item(self, product, spider) -> TwentyFirstCenturyItem:
         self.products.append(product)
         return product
 
-    def close_spider(self, spider) -> NoReturn:
+    def close_spider(self, spider) -> None:
         requests.patch(
             url=BACKEND_URL.format(backend_host=os.environ['BACKEND_HOST'], job_id=os.environ['SCRAPY_JOB']),
             json={'data': [dict(item) for item in self.products]}

@@ -9,6 +9,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from shutil import which
+
 BOT_NAME = 'shops'
 
 SPIDER_MODULES = ['shops.spiders']
@@ -52,9 +54,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'shops.middlewares.ShopsDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'shops.middlewares.ShopsDownloaderMiddleware': 543,
+   'scrapy_selenium.SeleniumMiddleware': 800
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -65,7 +68,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'shops.pipelines.TwentyFirstCenterPipeline': 300,
+   'shops.pipelines.ProductsPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,3 +93,8 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 BACKEND_URL = 'http://{backend_host}:8000/api/century/{job_id}'
+
+
+SELENIUM_DRIVER_NAME = 'chrome'
+SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')
+SELENIUM_DRIVER_ARGUMENTS = ['--headless']

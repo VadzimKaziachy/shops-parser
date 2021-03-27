@@ -3,7 +3,7 @@
 [Русский](docs/ru/README.md) | **English**
 
 This is a separate microservice for parsing data from sites.
-The application uses [Scrapy](https://scrapy.org/) 2.1.0 for parsing web pages.
+The application uses [Scrapy](https://scrapy.org/) for parsing web pages.
 
 **Contents**
 
