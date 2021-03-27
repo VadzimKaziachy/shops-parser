@@ -1,7 +1,9 @@
+from typing import Optional
+
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from ..items import TwentyFirstCenturyItem
+from shops.items import TwentyFirstCenturyItem
 
 
 class TwentyFirstCenturySpider(CrawlSpider):
@@ -13,7 +15,7 @@ class TwentyFirstCenturySpider(CrawlSpider):
         Rule(LinkExtractor(restrict_css=['a.j-load_page']), callback='parser_page', follow=True),
     )
 
-    def __init__(self, category=None, *args, **kwargs):
+    def __init__(self, category: Optional[str] = None, *args, **kwargs):
         self.start_urls.append(category)
         super().__init__(*args, **kwargs)
 
