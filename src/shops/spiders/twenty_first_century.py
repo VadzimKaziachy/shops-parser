@@ -3,7 +3,7 @@ from typing import Optional
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from shops.items import TwentyFirstCenturyItem
+from shops.items import ProductItem
 
 
 class TwentyFirstCenturySpider(CrawlSpider):
@@ -21,7 +21,7 @@ class TwentyFirstCenturySpider(CrawlSpider):
 
     def parser_page(self, response):
         for product in response.css('span.g-item-data'):
-            yield TwentyFirstCenturyItem(
+            yield ProductItem(
                 name=product.attrib.get('data-name', None),
                 code=product.attrib.get('data-code', None),
                 price=product.attrib.get('data-price', None)

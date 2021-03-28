@@ -10,7 +10,7 @@ import pika
 import json
 
 from shops import settings
-from shops.items import TwentyFirstCenturyItem
+from shops.items import ProductItem
 
 
 class ProductsPipeline(object):
@@ -21,7 +21,7 @@ class ProductsPipeline(object):
         self.connection = pika.BlockingConnection(parameters)
         self.channel = self.connection.channel()
 
-    def process_item(self, product, spider) -> TwentyFirstCenturyItem:
+    def process_item(self, product, spider) -> ProductItem:
         self.channel.basic_publish(
             exchange="",
             routing_key=settings.RABBITMQ_QUEUE,

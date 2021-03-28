@@ -8,7 +8,7 @@
 import scrapy
 
 
-class TwentyFirstCenturyItem(scrapy.Item):
+class ProductItem(scrapy.Item):
     code = scrapy.Field()
     name = scrapy.Field()
     price = scrapy.Field()
