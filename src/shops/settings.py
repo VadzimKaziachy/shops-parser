@@ -9,6 +9,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
 from shutil import which
 
 BOT_NAME = 'shops'
@@ -92,8 +93,14 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-BACKEND_URL = 'http://{backend_host}:8000/api/century/{job_id}'
+RABBITMQ_PORT = os.getenv("RABBITMQ_PORT", 5672)
+RABBITMQ_USER = os.getenv("RABBITMQ_USER", "guest")
+RABBITMQ_HOST = os.getenv("RABBITMQ_HOST", "127.0.0.1")
+RABBITMQ_QUEUE = os.getenv("RABBITMQ_QUEUE", "products")
+RABBITMQ_PASSWORD = os.getenv("RABBITMQ_PASSWORD", "guest")
+RABBITMQ_VIRTUALHOST = os.getenv("RABBITMQ_VIRTUALHOST", "shops_parser")
 
+RABBITMQ_URL = f"amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWORD}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/{RABBITMQ_VIRTUALHOST}"
 
 SELENIUM_DRIVER_NAME = 'chrome'
 SELENIUM_DRIVER_EXECUTABLE_PATH = which('chromedriver')

@@ -5,7 +5,7 @@ from scrapy import Spider
 from scrapy.http import XmlRpcRequest
 from scrapy_selenium import SeleniumRequest
 
-from shops.items import TwentyFirstCenturyItem
+from shops.items import ProductItem
 
 
 class SilaSpider(Spider):
@@ -28,7 +28,7 @@ class SilaSpider(Spider):
 
     def parse(self, response, **kwargs):
         for product in response.css("div.tov_prew"):
-            yield TwentyFirstCenturyItem(
+            yield ProductItem(
                 name=product.css("strong::text").get(),
                 code=re.search(r"[\(\.+ ](\d+)[\)]", product.css("sup::text").get()).group(1),
                 price=float(product.css("div.price b::text").get()) * 1000,

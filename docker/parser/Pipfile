@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+pika = "*"
 scrapyd = "*"
-requests = "*"
 scrapy-selenium = "*"
 
 [requires]
