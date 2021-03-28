@@ -11,4 +11,9 @@ The following variables are available:
 For example, if your project name is **myapp** and it includes two services **db** and **web**, 
 then Compose starts containers named **myapp_db_1** and **myapp_web_1** respectively;
 - **COMPOSE_PROJECT_DIR** - path to the project folder;
-- **BACKEND_HOST** - The host running backend.
+- **RABBITMQ_PORT** - the port on which RabbitMQ is running;
+- **RABBITMQ_USER** - username;
+- **RABBITMQ_HOST** - the host on which RabbitMQ is running;
+- **RABBITMQ_QUEUE** - the queue in which the data will sent;
+- **RABBITMQ_PASSWORD** - user password;
+- **RABBITMQ_VIRTUALHOST** - the virtual host to be used.

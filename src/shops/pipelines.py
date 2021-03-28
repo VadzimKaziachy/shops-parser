@@ -6,24 +6,28 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-import os
-import requests
+import pika
+import json
 
+from shops import settings
 from shops.items import TwentyFirstCenturyItem
-from shops.settings import BACKEND_URL
 
 
 class ProductsPipeline(object):
 
     def __init__(self) -> None:
-        self.products: list[TwentyFirstCenturyItem] = list()
+        parameters = pika.URLParameters(settings.RABBITMQ_URL)
+
+        self.connection = pika.BlockingConnection(parameters)
+        self.channel = self.connection.channel()
 
     def process_item(self, product, spider) -> TwentyFirstCenturyItem:
-        self.products.append(product)
+        self.channel.basic_publish(
+            exchange="",
+            routing_key=settings.RABBITMQ_QUEUE,
+            body=json.dumps(dict(product)).encode(),
+        )
         return product
 
     def close_spider(self, spider) -> None:
-        requests.patch(
-            url=BACKEND_URL.format(backend_host=os.environ['BACKEND_HOST'], job_id=os.environ['SCRAPY_JOB']),
-            json={'data': [dict(item) for item in self.products]}
-        )
+        self.connection.close()
