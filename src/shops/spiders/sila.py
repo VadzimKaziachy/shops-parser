@@ -3,7 +3,6 @@ from typing import Optional
 
 from scrapy import Spider
 from scrapy.http import XmlRpcRequest
-from scrapy_selenium import SeleniumRequest
 
 from shops.items import ProductItem
 
@@ -19,7 +18,7 @@ class SilaSpider(Spider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield SeleniumRequest(url=url, callback=self.parse_pages, cb_kwargs={"url": url})
+            yield XmlRpcRequest(url=url, callback=self.parse_pages, cb_kwargs={"url": url})
 
     def parse_pages(self, response, **kwargs):
         max_page = max(map(int, response.css("div.pages a::attr(href)").re(r".+[page/](\d+)")), default=1)
